@@ -35,6 +35,19 @@ tailnet-app serve-device --app-name dumpy --port 7331
 tailnet-app service-instructions --app-name dumpy --port 7331 --service-name dumpy
 ```
 
+For an app that already has a named Tailscale Service and should fail when that
+service is not approved/routed:
+
+```bash
+tailnet-app doctor \
+  --app-name trading-dashboard \
+  --port 8765 \
+  --service-name trading-dashboard \
+  --service-socket ~/.clawdad/tailscale-live-host/tailscaled.sock \
+  --official-url https://trading-dashboard.example.ts.net/ \
+  --require-service
+```
+
 The first-run user experience should not require a named service. If Tailscale
 is installed and connected, the app can expose a private device URL such as:
 
@@ -59,6 +72,8 @@ Those may require defining `svc:dumpy` in the Tailscale admin console.
   "port": 8765,
   "healthPath": "/healthz",
   "serviceName": "trading-dashboard",
+  "officialUrl": "https://trading-dashboard.example.ts.net/",
+  "requireService": true,
   "allowFunnel": false
 }
 ```

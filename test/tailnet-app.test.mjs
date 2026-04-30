@@ -4,6 +4,7 @@ import {
   analyzeFunnel,
   deviceTailnetUrl,
   flattenServeRoutes,
+  hasServiceHostApproval,
   normalizeConfig,
   parseJsonFromCommandOutput,
   runTailnetDoctor,
@@ -155,6 +156,26 @@ test("service instructions include admin values and host command", () => {
   assert.match(instructions.hostCommand, /--service=svc:trading-dashboard/);
 });
 
+test("detects named service host approval from Tailscale capability map", () => {
+  assert.equal(
+    hasServiceHostApproval(
+      {
+        Self: {
+          CapMap: {
+            "service-host": [
+              {
+                "svc:trading-dashboard": ["100.64.0.1"]
+              }
+            ]
+          }
+        }
+      },
+      "svc:trading-dashboard"
+    ),
+    true
+  );
+});
+
 test("doctor combines health, tailscale, serve, and funnel checks", async () => {
   const calls = [];
   const runner = async (command, args) => {
@@ -219,4 +240,116 @@ test("doctor combines health, tailscale, serve, and funnel checks", async () => 
   assert.equal(result.context.deviceUrl, "https://device.tail.test:8765/");
   assert.equal(result.context.serviceUrl, "https://trading-dashboard.tail.test/");
   assert.ok(calls.length >= 4);
+});
+
+test("doctor can require named service approval and route", async () => {
+  const runner = async (command, args) => {
+    const socket = args.find((arg) => arg.startsWith("--socket=")) || "";
+    const key = args.filter((arg) => !arg.startsWith("--socket=")).join(" ");
+
+    if (key === "status --json" && socket === "") {
+      return {
+        stdout: JSON.stringify({
+          BackendState: "Running",
+          MagicDNSSuffix: "tail.test",
+          Self: {
+            DNSName: "device.tail.test."
+          },
+          User: {}
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "status --json" && socket) {
+      return {
+        stdout: JSON.stringify({
+          BackendState: "Running",
+          MagicDNSSuffix: "tail.test",
+          Self: {
+            DNSName: "live-app-host.tail.test.",
+            CapMap: {
+              "service-host": [
+                {
+                  "svc:trading-dashboard": ["100.64.0.1"]
+                }
+              ]
+            }
+          },
+          User: {}
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "serve status --json" && socket === "") {
+      return {
+        stdout: JSON.stringify({
+          Web: {
+            "device.tail.test:8765": {
+              Handlers: {
+                "/": { Proxy: "http://127.0.0.1:8765" }
+              }
+            }
+          }
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "serve status --json" && socket) {
+      return {
+        stdout: JSON.stringify({
+          Services: {
+            "svc:trading-dashboard": {
+              Web: {
+                "trading-dashboard.tail.test:443": {
+                  Handlers: {
+                    "/": { Proxy: "http://127.0.0.1:8765" }
+                  }
+                }
+              }
+            }
+          }
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "funnel status") {
+      return { stdout: "", stderr: "", code: 0 };
+    }
+
+    if (key === "funnel status --json") {
+      return { stdout: "{}", stderr: "", code: 0 };
+    }
+
+    throw new Error(`unexpected command: ${key}`);
+  };
+
+  const fetcher = async () => ({
+    ok: true,
+    status: 200,
+    headers: { get: () => "application/json" },
+    json: async () => ({ ok: true })
+  });
+
+  const result = await runTailnetDoctor(
+    {
+      appName: "trading-dashboard",
+      port: 8765,
+      serviceName: "trading-dashboard",
+      serviceSocket: "/tmp/tailscaled.sock",
+      requireService: true
+    },
+    { runner, fetch: fetcher }
+  );
+
+  assert.equal(result.ok, true);
+  assert.equal(result.checks.find((check) => check.name === "named_service_approval").ok, true);
+  assert.equal(result.checks.find((check) => check.name === "named_service_route").ok, true);
 });
