@@ -1,0 +1,849 @@
+{
+  "last_run_id": "",
+  "last_packet_id": "",
+  "runs": {},
+  "last_erdos_sync": {},
+  "last_discover_scan_id": "",
+  "discovery_scans": {},
+  "last_research_run_id": "",
+  "research_runs": {},
+  "project_context": {
+    "path": "orp/project.json",
+    "schema_version": "1.0.0",
+    "refreshed_at_utc": "2026-04-30T02:59:14Z",
+    "refresh_source": "init",
+    "authority_surface_count": 7,
+    "research_default_timing": "after_local_decomposition_before_action"
+  },
+  "governance": {
+    "orp_governed": true,
+    "mode": "repo_governance",
+    "initialized_at_utc": "2026-04-30T02:59:14Z",
+    "config_path": "orp.yml",
+    "manifest_path": "orp/governance.json",
+    "agent_policy_path": "orp/agent-policy.json",
+    "hygiene_policy_path": "orp/hygiene-policy.json",
+    "handoff_path": "orp/HANDOFF.md",
+    "checkpoint_log_path": "orp/checkpoints/CHECKPOINT_LOG.md",
+    "default_branch": "main",
+    "protected_branches": [
+      "main"
+    ],
+    "allow_protected_branch_work": false,
+    "git_initialized_by_orp": false,
+    "git_init_method": "",
+    "remote_mode": "local_only",
+    "effective_remote_url": "",
+    "effective_github_repo": "",
+    "remote_source": "none"
+  },
+  "startup": {
+    "updated_at_utc": "2026-04-30T02:59:15Z",
+    "enabled": true,
+    "project_startup": false,
+    "github": {
+      "requested": false,
+      "repo": "",
+      "remote_url": "",
+      "action": "not_requested"
+    },
+    "workspace": {
+      "requested": true,
+      "workspace": "main",
+      "path": "/Volumes/Code_2TB/code/tailnet-app",
+      "remote_url": "",
+      "remote_branch": "",
+      "codex_session_id": "019dcd50-111d-7451-bd01-dbc21336c679",
+      "action": "updated",
+      "command": "/Volumes/Code_2TB/code/orp/bin/orp.js workspace add-tab main --path /Volumes/Code_2TB/code/tailnet-app --title 'Tailnet App' --bootstrap-command 'npm test' --resume-tool codex --resume-session-id 019dcd50-111d-7451-bd01-dbc21336c679 --json",
+      "result": {
+        "action": "add-tab",
+        "workspaceId": "captured-iterm-window-20260401t032225z",
+        "workspaceTitle": "captured-iterm-window-20260401t032225z",
+        "mutation": "added",
+        "tabCount": 33,
+        "tab": {
+          "title": "Tailnet App",
+          "path": "/Volumes/Code_2TB/code/tailnet-app",
+          "bootstrapCommand": "npm test",
+          "resumeCommand": "codex resume 019dcd50-111d-7451-bd01-dbc21336c679",
+          "resumeTool": "codex",
+          "resumeSessionId": "019dcd50-111d-7451-bd01-dbc21336c679",
+          "codexSessionId": "019dcd50-111d-7451-bd01-dbc21336c679",
+          "restartCommand": "cd '/Volumes/Code_2TB/code/tailnet-app' && codex resume 019dcd50-111d-7451-bd01-dbc21336c679"
+        },
+        "removedTabs": [],
+        "persistedTo": "workspace-file",
+        "ideaId": null,
+        "promotedFromIdeaId": null,
+        "createdHostedWorkspace": false,
+        "hostedMigrationSkippedReason": null,
+        "workspaceSourceId": null,
+        "manifestPath": "/Users/codymitchell/.config/orp/workspaces/captured-iterm-window-20260401t032225z-0bef2e19.json",
+        "managedCachePath": null,
+        "assignedSlot": null,
+        "assignedSlots": null,
+        "manifest": {
+          "version": "1",
+          "workspaceId": "captured-iterm-window-20260401t032225z",
+          "title": "captured-iterm-window-20260401t032225z",
+          "projects": [
+            {
+              "title": "longevity-research (2)",
+              "path": "/Volumes/Code_2TB/code/longevity-research",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "longevity-research (2)",
+                  "resumeCommand": "codex resume 019d2098-ce69-7511-bc96-f3821780603b",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d2098-ce69-7511-bc96-f3821780603b",
+                  "codexSessionId": "019d2098-ce69-7511-bc96-f3821780603b"
+                }
+              ]
+            },
+            {
+              "title": "life-ops",
+              "path": "/Volumes/Code_2TB/code/life-ops",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "life-ops",
+                  "resumeCommand": "codex resume 019d208d-1f83-7043-95a7-05dbbf82b19d",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d208d-1f83-7043-95a7-05dbbf82b19d",
+                  "codexSessionId": "019d208d-1f83-7043-95a7-05dbbf82b19d"
+                }
+              ]
+            },
+            {
+              "title": "collaboration",
+              "path": "/Volumes/Code_2TB/code/collaboration",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "collaboration",
+                  "resumeCommand": "codex resume 019d0c53-f8af-7082-976a-4a7cfd725d5a",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d0c53-f8af-7082-976a-4a7cfd725d5a",
+                  "codexSessionId": "019d0c53-f8af-7082-976a-4a7cfd725d5a"
+                }
+              ]
+            },
+            {
+              "title": "erdos-problems",
+              "path": "/Volumes/Code_2TB/code/erdos-problems",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "erdos-problems",
+                  "resumeCommand": "codex resume 019d5d05-0c00-78c3-b5f3-d7dbda20ff7f",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d5d05-0c00-78c3-b5f3-d7dbda20ff7f",
+                  "codexSessionId": "019d5d05-0c00-78c3-b5f3-d7dbda20ff7f"
+                }
+              ]
+            },
+            {
+              "title": "nanogpt-benchmarks",
+              "path": "/Volumes/Code_2TB/code/collaboration/nanogpt-benchmarks",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "nanogpt-benchmarks",
+                  "resumeCommand": "codex resume 019d1a2c-793c-79b0-be57-0f02cc9a3d32",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d1a2c-793c-79b0-be57-0f02cc9a3d32",
+                  "codexSessionId": "019d1a2c-793c-79b0-be57-0f02cc9a3d32"
+                }
+              ]
+            },
+            {
+              "title": "emma",
+              "path": "/Volumes/Code_2TB/code/emma",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "emma",
+                  "resumeCommand": "codex resume 019d0d19-2abf-7bf1-a0d4-70b6283dbf04",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d0d19-2abf-7bf1-a0d4-70b6283dbf04",
+                  "codexSessionId": "019d0d19-2abf-7bf1-a0d4-70b6283dbf04"
+                }
+              ]
+            },
+            {
+              "title": "RigidityCore",
+              "path": "/Volumes/Code_2TB/code/RigidityCore",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "RigidityCore",
+                  "resumeCommand": "codex resume 019cf38d-5880-7b42-9078-2376424b4974",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019cf38d-5880-7b42-9078-2376424b4974",
+                  "codexSessionId": "019cf38d-5880-7b42-9078-2376424b4974"
+                }
+              ]
+            },
+            {
+              "title": "Fractal Research Group",
+              "path": "/Volumes/Code_2TB/code/fractal-research-group",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "Fractal Research Group",
+                  "resumeCommand": "codex resume 019d7856-fd79-7330-a620-26716c31a461",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d7856-fd79-7330-a620-26716c31a461",
+                  "codexSessionId": "019d7856-fd79-7330-a620-26716c31a461"
+                }
+              ]
+            },
+            {
+              "title": "main mind",
+              "path": "/Volumes/Code_2TB/code/global-mind",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "main mind",
+                  "resumeCommand": "codex resume 019d64ef-0f73-7423-9406-5266d6f7efee",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d64ef-0f73-7423-9406-5266d6f7efee",
+                  "codexSessionId": "019d64ef-0f73-7423-9406-5266d6f7efee"
+                }
+              ]
+            },
+            {
+              "title": "clawdad",
+              "path": "/Volumes/Code_2TB/code/clawdad",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "clawdad",
+                  "resumeCommand": "codex resume 019d882d-3772-70f2-8287-a2d4b014197d",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d882d-3772-70f2-8287-a2d4b014197d",
+                  "codexSessionId": "019d882d-3772-70f2-8287-a2d4b014197d"
+                }
+              ]
+            },
+            {
+              "title": "dormant-llm-puzzle",
+              "path": "/Volumes/Code_2TB/code/dormant-llm-puzzle",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "dormant-llm-puzzle",
+                  "resumeCommand": "codex resume 019d6632-6890-7622-9c3c-607a0cd66992",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d6632-6890-7622-9c3c-607a0cd66992",
+                  "codexSessionId": "019d6632-6890-7622-9c3c-607a0cd66992"
+                }
+              ]
+            },
+            {
+              "title": "DARPA Bio Attribution Challenge",
+              "path": "/Volumes/Code_2TB/code/competitions/darpa-bio-attribution-challenge",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "DARPA Bio Attribution Challenge"
+                }
+              ]
+            },
+            {
+              "title": "starshade-exoplanet-data-challenge",
+              "path": "/Volumes/Code_2TB/code/competitions/starshade-exoplanet-data-challenge",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "starshade-exoplanet-data-challenge",
+                  "resumeCommand": "codex resume 019dc397-3736-79d0-b912-58202e8eb15f",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019dc397-3736-79d0-b912-58202e8eb15f",
+                  "codexSessionId": "019dc397-3736-79d0-b912-58202e8eb15f"
+                }
+              ]
+            },
+            {
+              "title": "orp",
+              "path": "/Volumes/Code_2TB/code/orp",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "orp",
+                  "resumeCommand": "codex resume 019d32d3-d8b2-7fa2-aaec-c74b5134afd6",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d32d3-d8b2-7fa2-aaec-c74b5134afd6",
+                  "codexSessionId": "019d32d3-d8b2-7fa2-aaec-c74b5134afd6"
+                }
+              ]
+            },
+            {
+              "title": "Cairn",
+              "path": "/Volumes/Code_2TB/code/cairn",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "Cairn",
+                  "resumeCommand": "codex resume 019d8bcc-8a39-7531-adf9-69a63a7d7f02",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d8bcc-8a39-7531-adf9-69a63a7d7f02",
+                  "codexSessionId": "019d8bcc-8a39-7531-adf9-69a63a7d7f02"
+                }
+              ]
+            },
+            {
+              "title": "Pensacola Contractor Revenue Desk",
+              "path": "/Volumes/Code_2TB/code/go-to-market/pensacola-contractor-revenue-desk",
+              "remoteUrl": "https://github.com/SproutSeeds/pensacola-contractor-revenue-desk.git",
+              "remoteBranch": "main",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "Pensacola Contractor Revenue Desk",
+                  "resumeCommand": "codex resume 019d84ac-a3bf-7053-b347-61284d8b9f73",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d84ac-a3bf-7053-b347-61284d8b9f73",
+                  "codexSessionId": "019d84ac-a3bf-7053-b347-61284d8b9f73"
+                }
+              ]
+            },
+            {
+              "title": "Cody Equation Lab",
+              "path": "/Volumes/Code_2TB/code/cody-equation-lab",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "Cody Equation Lab",
+                  "resumeCommand": "codex resume 019d7e49-ae23-78a0-84cc-886401fb4d6e",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d7e49-ae23-78a0-84cc-886401fb4d6e",
+                  "codexSessionId": "019d7e49-ae23-78a0-84cc-886401fb4d6e"
+                }
+              ]
+            },
+            {
+              "title": "NVIDIA Nemotron Challenge",
+              "path": "/Volumes/Code_2TB/code/competitions/nvidia-nemotron-model-reasoning-challenge",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "NVIDIA Nemotron Challenge",
+                  "resumeCommand": "codex resume 019d7a52-13ef-7e21-9432-a0d3303a9641",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d7a52-13ef-7e21-9432-a0d3303a9641",
+                  "codexSessionId": "019d7a52-13ef-7e21-9432-a0d3303a9641"
+                }
+              ]
+            },
+            {
+              "title": "Curing Blood Cancer",
+              "path": "/Volumes/Code_2TB/code/curing-blood-cancer",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "Curing Blood Cancer",
+                  "resumeCommand": "codex resume 019dc355-396c-7552-b916-5df19b66c6fa",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019dc355-396c-7552-b916-5df19b66c6fa",
+                  "codexSessionId": "019dc355-396c-7552-b916-5df19b66c6fa"
+                }
+              ]
+            },
+            {
+              "title": "Options Probability Hunter",
+              "path": "/Volumes/Code_2TB/code/options-probability-hunter",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "Options Probability Hunter",
+                  "resumeCommand": "codex resume 019d8ff9-e229-7743-8ea4-b8c9576b1441",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d8ff9-e229-7743-8ea4-b8c9576b1441",
+                  "codexSessionId": "019d8ff9-e229-7743-8ea4-b8c9576b1441"
+                }
+              ]
+            },
+            {
+              "title": "newindustrialpolicy",
+              "path": "/Volumes/Code_2TB/code/newindustrialpolicy",
+              "remoteUrl": "https://github.com/SproutSeeds/newindustrialpolicy.git",
+              "remoteBranch": "main",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "newindustrialpolicy",
+                  "resumeCommand": "codex resume 019da0b9-4819-7692-a347-2e846cff87d8",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019da0b9-4819-7692-a347-2e846cff87d8",
+                  "codexSessionId": "019da0b9-4819-7692-a347-2e846cff87d8"
+                }
+              ]
+            },
+            {
+              "title": "liquidize-earth",
+              "path": "/Volumes/Code_2TB/code/liquidize-earth",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "liquidize-earth",
+                  "resumeCommand": "codex resume 019db080-26d6-7e11-9fc2-91349797825f",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019db080-26d6-7e11-9fc2-91349797825f",
+                  "codexSessionId": "019db080-26d6-7e11-9fc2-91349797825f"
+                }
+              ]
+            },
+            {
+              "title": "research-delegation-lab",
+              "path": "/Volumes/Code_2TB/code/research-delegation-lab",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "research-delegation-lab",
+                  "resumeCommand": "codex resume 019da841-0dda-78b3-94fb-b4349d963bff",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019da841-0dda-78b3-94fb-b4349d963bff",
+                  "codexSessionId": "019da841-0dda-78b3-94fb-b4349d963bff"
+                }
+              ]
+            },
+            {
+              "title": "song-dossier",
+              "path": "/Volumes/Code_2TB/code/song-dossier",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "song-dossier",
+                  "resumeCommand": "codex resume 019db5ee-efbc-7933-9f70-c05daa9471d6",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019db5ee-efbc-7933-9f70-c05daa9471d6",
+                  "codexSessionId": "019db5ee-efbc-7933-9f70-c05daa9471d6"
+                }
+              ]
+            },
+            {
+              "title": "Sisy-website",
+              "path": "/Volumes/Code_2TB/code/Sisy-website",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "Sisy-website",
+                  "resumeCommand": "codex resume 019d632c-5e48-7e11-b9fe-e5137ba5b334",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019d632c-5e48-7e11-b9fe-e5137ba5b334",
+                  "codexSessionId": "019d632c-5e48-7e11-b9fe-e5137ba5b334"
+                }
+              ]
+            },
+            {
+              "title": "orp-web-app",
+              "path": "/Volumes/Code_2TB/code/orp-web-app",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "orp-web-app",
+                  "resumeCommand": "codex resume 019ce2ee-6083-7d02-9d3a-d27a761132a8",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019ce2ee-6083-7d02-9d3a-d27a761132a8",
+                  "codexSessionId": "019ce2ee-6083-7d02-9d3a-d27a761132a8"
+                }
+              ]
+            },
+            {
+              "title": "Alzheimer's Open Intelligence",
+              "path": "/Volumes/Code_2TB/code/alzheimers-open-intelligence",
+              "remoteUrl": "https://github.com/SproutSeeds/alzheimers-open-intelligence.git",
+              "remoteBranch": "main",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "Alzheimer's Open Intelligence",
+                  "resumeCommand": "codex resume 019dbaeb-0b43-7403-abca-9fffbdd2e210",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019dbaeb-0b43-7403-abca-9fffbdd2e210",
+                  "codexSessionId": "019dbaeb-0b43-7403-abca-9fffbdd2e210"
+                }
+              ]
+            },
+            {
+              "title": "financial-stack",
+              "path": "/Volumes/Code_2TB/code/financial-stack",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "financial-stack",
+                  "resumeCommand": "codex resume 019dc348-ce52-7f52-8ac8-0200a9bf946a",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019dc348-ce52-7f52-8ac8-0200a9bf946a",
+                  "codexSessionId": "019dc348-ce52-7f52-8ac8-0200a9bf946a"
+                }
+              ]
+            },
+            {
+              "title": "frg-health",
+              "path": "/Volumes/Code_2TB/code/frg-health",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "frg-health",
+                  "resumeCommand": "codex resume a760e09f-c3ad-4342-8d23-f3749eb333b6",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "a760e09f-c3ad-4342-8d23-f3749eb333b6",
+                  "codexSessionId": "a760e09f-c3ad-4342-8d23-f3749eb333b6"
+                }
+              ]
+            },
+            {
+              "title": "futures-prop-trading-lab",
+              "path": "/Volumes/Code_2TB/code/futures-prop-trading-lab",
+              "sessionCount": 2,
+              "sessions": [
+                {
+                  "title": "futures-prop-trading-lab",
+                  "resumeCommand": "codex resume 019dcd50-111d-7451-bd01-dbc21336c679",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019dcd50-111d-7451-bd01-dbc21336c679",
+                  "codexSessionId": "019dcd50-111d-7451-bd01-dbc21336c679"
+                },
+                {
+                  "title": "futures-prop-trading-lab Setup structure evaluator Delegate",
+                  "resumeCommand": "codex resume 019dcf99-0b76-7093-b662-b358555064ab",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019dcf99-0b76-7093-b662-b358555064ab",
+                  "codexSessionId": "019dcf99-0b76-7093-b662-b358555064ab"
+                }
+              ]
+            },
+            {
+              "title": "frg-site",
+              "path": "/Volumes/Code_2TB/code/frg-site",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "frg-site",
+                  "resumeCommand": "codex resume 019ddbeb-69fc-7540-ae5f-a404c113cb6b",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019ddbeb-69fc-7540-ae5f-a404c113cb6b",
+                  "codexSessionId": "019ddbeb-69fc-7540-ae5f-a404c113cb6b"
+                }
+              ]
+            },
+            {
+              "title": "Tailnet App",
+              "path": "/Volumes/Code_2TB/code/tailnet-app",
+              "bootstrapCommand": "npm test",
+              "sessionCount": 1,
+              "sessions": [
+                {
+                  "title": "Tailnet App",
+                  "resumeCommand": "codex resume 019dcd50-111d-7451-bd01-dbc21336c679",
+                  "resumeTool": "codex",
+                  "resumeSessionId": "019dcd50-111d-7451-bd01-dbc21336c679",
+                  "codexSessionId": "019dcd50-111d-7451-bd01-dbc21336c679"
+                }
+              ]
+            }
+          ],
+          "tabs": [
+            {
+              "title": "longevity-research (2)",
+              "path": "/Volumes/Code_2TB/code/longevity-research",
+              "resumeCommand": "codex resume 019d2098-ce69-7511-bc96-f3821780603b",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d2098-ce69-7511-bc96-f3821780603b",
+              "codexSessionId": "019d2098-ce69-7511-bc96-f3821780603b"
+            },
+            {
+              "title": "life-ops",
+              "path": "/Volumes/Code_2TB/code/life-ops",
+              "resumeCommand": "codex resume 019d208d-1f83-7043-95a7-05dbbf82b19d",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d208d-1f83-7043-95a7-05dbbf82b19d",
+              "codexSessionId": "019d208d-1f83-7043-95a7-05dbbf82b19d"
+            },
+            {
+              "title": "collaboration",
+              "path": "/Volumes/Code_2TB/code/collaboration",
+              "resumeCommand": "codex resume 019d0c53-f8af-7082-976a-4a7cfd725d5a",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d0c53-f8af-7082-976a-4a7cfd725d5a",
+              "codexSessionId": "019d0c53-f8af-7082-976a-4a7cfd725d5a"
+            },
+            {
+              "title": "erdos-problems",
+              "path": "/Volumes/Code_2TB/code/erdos-problems",
+              "resumeCommand": "codex resume 019d5d05-0c00-78c3-b5f3-d7dbda20ff7f",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d5d05-0c00-78c3-b5f3-d7dbda20ff7f",
+              "codexSessionId": "019d5d05-0c00-78c3-b5f3-d7dbda20ff7f"
+            },
+            {
+              "title": "nanogpt-benchmarks",
+              "path": "/Volumes/Code_2TB/code/collaboration/nanogpt-benchmarks",
+              "resumeCommand": "codex resume 019d1a2c-793c-79b0-be57-0f02cc9a3d32",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d1a2c-793c-79b0-be57-0f02cc9a3d32",
+              "codexSessionId": "019d1a2c-793c-79b0-be57-0f02cc9a3d32"
+            },
+            {
+              "title": "emma",
+              "path": "/Volumes/Code_2TB/code/emma",
+              "resumeCommand": "codex resume 019d0d19-2abf-7bf1-a0d4-70b6283dbf04",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d0d19-2abf-7bf1-a0d4-70b6283dbf04",
+              "codexSessionId": "019d0d19-2abf-7bf1-a0d4-70b6283dbf04"
+            },
+            {
+              "title": "RigidityCore",
+              "path": "/Volumes/Code_2TB/code/RigidityCore",
+              "resumeCommand": "codex resume 019cf38d-5880-7b42-9078-2376424b4974",
+              "resumeTool": "codex",
+              "resumeSessionId": "019cf38d-5880-7b42-9078-2376424b4974",
+              "codexSessionId": "019cf38d-5880-7b42-9078-2376424b4974"
+            },
+            {
+              "title": "Fractal Research Group",
+              "path": "/Volumes/Code_2TB/code/fractal-research-group",
+              "resumeCommand": "codex resume 019d7856-fd79-7330-a620-26716c31a461",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d7856-fd79-7330-a620-26716c31a461",
+              "codexSessionId": "019d7856-fd79-7330-a620-26716c31a461"
+            },
+            {
+              "title": "main mind",
+              "path": "/Volumes/Code_2TB/code/global-mind",
+              "resumeCommand": "codex resume 019d64ef-0f73-7423-9406-5266d6f7efee",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d64ef-0f73-7423-9406-5266d6f7efee",
+              "codexSessionId": "019d64ef-0f73-7423-9406-5266d6f7efee"
+            },
+            {
+              "title": "clawdad",
+              "path": "/Volumes/Code_2TB/code/clawdad",
+              "resumeCommand": "codex resume 019d882d-3772-70f2-8287-a2d4b014197d",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d882d-3772-70f2-8287-a2d4b014197d",
+              "codexSessionId": "019d882d-3772-70f2-8287-a2d4b014197d"
+            },
+            {
+              "title": "dormant-llm-puzzle",
+              "path": "/Volumes/Code_2TB/code/dormant-llm-puzzle",
+              "resumeCommand": "codex resume 019d6632-6890-7622-9c3c-607a0cd66992",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d6632-6890-7622-9c3c-607a0cd66992",
+              "codexSessionId": "019d6632-6890-7622-9c3c-607a0cd66992"
+            },
+            {
+              "title": "DARPA Bio Attribution Challenge",
+              "path": "/Volumes/Code_2TB/code/competitions/darpa-bio-attribution-challenge"
+            },
+            {
+              "title": "starshade-exoplanet-data-challenge",
+              "path": "/Volumes/Code_2TB/code/competitions/starshade-exoplanet-data-challenge",
+              "resumeCommand": "codex resume 019dc397-3736-79d0-b912-58202e8eb15f",
+              "resumeTool": "codex",
+              "resumeSessionId": "019dc397-3736-79d0-b912-58202e8eb15f",
+              "codexSessionId": "019dc397-3736-79d0-b912-58202e8eb15f"
+            },
+            {
+              "title": "orp",
+              "path": "/Volumes/Code_2TB/code/orp",
+              "resumeCommand": "codex resume 019d32d3-d8b2-7fa2-aaec-c74b5134afd6",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d32d3-d8b2-7fa2-aaec-c74b5134afd6",
+              "codexSessionId": "019d32d3-d8b2-7fa2-aaec-c74b5134afd6"
+            },
+            {
+              "title": "Cairn",
+              "path": "/Volumes/Code_2TB/code/cairn",
+              "resumeCommand": "codex resume 019d8bcc-8a39-7531-adf9-69a63a7d7f02",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d8bcc-8a39-7531-adf9-69a63a7d7f02",
+              "codexSessionId": "019d8bcc-8a39-7531-adf9-69a63a7d7f02"
+            },
+            {
+              "title": "Pensacola Contractor Revenue Desk",
+              "path": "/Volumes/Code_2TB/code/go-to-market/pensacola-contractor-revenue-desk",
+              "remoteUrl": "https://github.com/SproutSeeds/pensacola-contractor-revenue-desk.git",
+              "remoteBranch": "main",
+              "resumeCommand": "codex resume 019d84ac-a3bf-7053-b347-61284d8b9f73",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d84ac-a3bf-7053-b347-61284d8b9f73",
+              "codexSessionId": "019d84ac-a3bf-7053-b347-61284d8b9f73"
+            },
+            {
+              "title": "Cody Equation Lab",
+              "path": "/Volumes/Code_2TB/code/cody-equation-lab",
+              "resumeCommand": "codex resume 019d7e49-ae23-78a0-84cc-886401fb4d6e",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d7e49-ae23-78a0-84cc-886401fb4d6e",
+              "codexSessionId": "019d7e49-ae23-78a0-84cc-886401fb4d6e"
+            },
+            {
+              "title": "NVIDIA Nemotron Challenge",
+              "path": "/Volumes/Code_2TB/code/competitions/nvidia-nemotron-model-reasoning-challenge",
+              "resumeCommand": "codex resume 019d7a52-13ef-7e21-9432-a0d3303a9641",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d7a52-13ef-7e21-9432-a0d3303a9641",
+              "codexSessionId": "019d7a52-13ef-7e21-9432-a0d3303a9641"
+            },
+            {
+              "title": "Curing Blood Cancer",
+              "path": "/Volumes/Code_2TB/code/curing-blood-cancer",
+              "resumeCommand": "codex resume 019dc355-396c-7552-b916-5df19b66c6fa",
+              "resumeTool": "codex",
+              "resumeSessionId": "019dc355-396c-7552-b916-5df19b66c6fa",
+              "codexSessionId": "019dc355-396c-7552-b916-5df19b66c6fa"
+            },
+            {
+              "title": "Options Probability Hunter",
+              "path": "/Volumes/Code_2TB/code/options-probability-hunter",
+              "resumeCommand": "codex resume 019d8ff9-e229-7743-8ea4-b8c9576b1441",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d8ff9-e229-7743-8ea4-b8c9576b1441",
+              "codexSessionId": "019d8ff9-e229-7743-8ea4-b8c9576b1441"
+            },
+            {
+              "title": "newindustrialpolicy",
+              "path": "/Volumes/Code_2TB/code/newindustrialpolicy",
+              "remoteUrl": "https://github.com/SproutSeeds/newindustrialpolicy.git",
+              "remoteBranch": "main",
+              "resumeCommand": "codex resume 019da0b9-4819-7692-a347-2e846cff87d8",
+              "resumeTool": "codex",
+              "resumeSessionId": "019da0b9-4819-7692-a347-2e846cff87d8",
+              "codexSessionId": "019da0b9-4819-7692-a347-2e846cff87d8"
+            },
+            {
+              "title": "liquidize-earth",
+              "path": "/Volumes/Code_2TB/code/liquidize-earth",
+              "resumeCommand": "codex resume 019db080-26d6-7e11-9fc2-91349797825f",
+              "resumeTool": "codex",
+              "resumeSessionId": "019db080-26d6-7e11-9fc2-91349797825f",
+              "codexSessionId": "019db080-26d6-7e11-9fc2-91349797825f"
+            },
+            {
+              "title": "research-delegation-lab",
+              "path": "/Volumes/Code_2TB/code/research-delegation-lab",
+              "resumeCommand": "codex resume 019da841-0dda-78b3-94fb-b4349d963bff",
+              "resumeTool": "codex",
+              "resumeSessionId": "019da841-0dda-78b3-94fb-b4349d963bff",
+              "codexSessionId": "019da841-0dda-78b3-94fb-b4349d963bff"
+            },
+            {
+              "title": "song-dossier",
+              "path": "/Volumes/Code_2TB/code/song-dossier",
+              "resumeCommand": "codex resume 019db5ee-efbc-7933-9f70-c05daa9471d6",
+              "resumeTool": "codex",
+              "resumeSessionId": "019db5ee-efbc-7933-9f70-c05daa9471d6",
+              "codexSessionId": "019db5ee-efbc-7933-9f70-c05daa9471d6"
+            },
+            {
+              "title": "Sisy-website",
+              "path": "/Volumes/Code_2TB/code/Sisy-website",
+              "resumeCommand": "codex resume 019d632c-5e48-7e11-b9fe-e5137ba5b334",
+              "resumeTool": "codex",
+              "resumeSessionId": "019d632c-5e48-7e11-b9fe-e5137ba5b334",
+              "codexSessionId": "019d632c-5e48-7e11-b9fe-e5137ba5b334"
+            },
+            {
+              "title": "orp-web-app",
+              "path": "/Volumes/Code_2TB/code/orp-web-app",
+              "resumeCommand": "codex resume 019ce2ee-6083-7d02-9d3a-d27a761132a8",
+              "resumeTool": "codex",
+              "resumeSessionId": "019ce2ee-6083-7d02-9d3a-d27a761132a8",
+              "codexSessionId": "019ce2ee-6083-7d02-9d3a-d27a761132a8"
+            },
+            {
+              "title": "Alzheimer's Open Intelligence",
+              "path": "/Volumes/Code_2TB/code/alzheimers-open-intelligence",
+              "remoteUrl": "https://github.com/SproutSeeds/alzheimers-open-intelligence.git",
+              "remoteBranch": "main",
+              "resumeCommand": "codex resume 019dbaeb-0b43-7403-abca-9fffbdd2e210",
+              "resumeTool": "codex",
+              "resumeSessionId": "019dbaeb-0b43-7403-abca-9fffbdd2e210",
+              "codexSessionId": "019dbaeb-0b43-7403-abca-9fffbdd2e210"
+            },
+            {
+              "title": "financial-stack",
+              "path": "/Volumes/Code_2TB/code/financial-stack",
+              "resumeCommand": "codex resume 019dc348-ce52-7f52-8ac8-0200a9bf946a",
+              "resumeTool": "codex",
+              "resumeSessionId": "019dc348-ce52-7f52-8ac8-0200a9bf946a",
+              "codexSessionId": "019dc348-ce52-7f52-8ac8-0200a9bf946a"
+            },
+            {
+              "title": "frg-health",
+              "path": "/Volumes/Code_2TB/code/frg-health",
+              "resumeCommand": "codex resume a760e09f-c3ad-4342-8d23-f3749eb333b6",
+              "resumeTool": "codex",
+              "resumeSessionId": "a760e09f-c3ad-4342-8d23-f3749eb333b6",
+              "codexSessionId": "a760e09f-c3ad-4342-8d23-f3749eb333b6"
+            },
+            {
+              "title": "futures-prop-trading-lab",
+              "path": "/Volumes/Code_2TB/code/futures-prop-trading-lab",
+              "resumeCommand": "codex resume 019dcd50-111d-7451-bd01-dbc21336c679",
+              "resumeTool": "codex",
+              "resumeSessionId": "019dcd50-111d-7451-bd01-dbc21336c679",
+              "codexSessionId": "019dcd50-111d-7451-bd01-dbc21336c679"
+            },
+            {
+              "title": "futures-prop-trading-lab Setup structure evaluator Delegate",
+              "path": "/Volumes/Code_2TB/code/futures-prop-trading-lab",
+              "resumeCommand": "codex resume 019dcf99-0b76-7093-b662-b358555064ab",
+              "resumeTool": "codex",
+              "resumeSessionId": "019dcf99-0b76-7093-b662-b358555064ab",
+              "codexSessionId": "019dcf99-0b76-7093-b662-b358555064ab"
+            },
+            {
+              "title": "frg-site",
+              "path": "/Volumes/Code_2TB/code/frg-site",
+              "resumeCommand": "codex resume 019ddbeb-69fc-7540-ae5f-a404c113cb6b",
+              "resumeTool": "codex",
+              "resumeSessionId": "019ddbeb-69fc-7540-ae5f-a404c113cb6b",
+              "codexSessionId": "019ddbeb-69fc-7540-ae5f-a404c113cb6b"
+            },
+            {
+              "title": "Tailnet App",
+              "path": "/Volumes/Code_2TB/code/tailnet-app",
+              "bootstrapCommand": "npm test",
+              "resumeCommand": "codex resume 019dcd50-111d-7451-bd01-dbc21336c679",
+              "resumeTool": "codex",
+              "resumeSessionId": "019dcd50-111d-7451-bd01-dbc21336c679",
+              "codexSessionId": "019dcd50-111d-7451-bd01-dbc21336c679"
+            }
+          ]
+        }
+      }
+    },
+    "clawdad": {
+      "requested": true,
+      "available": true,
+      "brief_path": "orp/clawdad/DELEGATE_BRIEF.md",
+      "brief_action": "created",
+      "action": "blocked",
+      "commands": [
+        "clawdad register /Volumes/Code_2TB/code/tailnet-app --provider codex --description 'Reusable Tailnet app exposure and diagnostics package' --slug tailnet-app",
+        "clawdad delegate-set /Volumes/Code_2TB/code/tailnet-app --file /Volumes/Code_2TB/code/tailnet-app/orp/clawdad/DELEGATE_BRIEF.md",
+        "clawdad track-session /Volumes/Code_2TB/code/tailnet-app 019dcd50-111d-7451-bd01-dbc21336c679"
+      ],
+      "results": [
+        {
+          "ok": false,
+          "command": "clawdad register /Volumes/Code_2TB/code/tailnet-app --provider codex --description 'Reusable Tailnet app exposure and diagnostics package' --slug tailnet-app",
+          "returncode": 1,
+          "detail": "error: Project already registered: /Volumes/Code_2TB/code/tailnet-app error: Use 'clawdad add-session tailnet-app' to add another tracked session"
+        }
+      ],
+      "ok": false
+    },
+    "codex": {
+      "requested_current": true,
+      "session_id": "019dcd50-111d-7451-bd01-dbc21336c679",
+      "source": "CODEX_THREAD_ID"
+    }
+  }
+}

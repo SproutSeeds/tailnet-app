@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "governance_mode": "repo_governance",
+  "initialized_at_utc": "2026-04-30T02:59:14Z",
+  "tool": {
+    "name": "orp",
+    "package": "open-research-protocol",
+    "version": "0.4.32"
+  },
+  "repo": {
+    "root_path": "/Volumes/Code_2TB/code/tailnet-app",
+    "orp_governed": true
+  },
+  "runtime": {
+    "config_path": "orp.yml",
+    "state_json": "orp/state.json",
+    "manifest_path": "orp/governance.json",
+    "agent_policy_path": "orp/agent-policy.json",
+    "hygiene_policy_path": "orp/hygiene-policy.json",
+    "handoff_path": "orp/HANDOFF.md",
+    "checkpoint_log_path": "orp/checkpoints/CHECKPOINT_LOG.md",
+    "artifact_root": "orp/artifacts",
+    "packet_root": "orp/packets",
+    "discovery_root": "orp/discovery/github"
+  },
+  "git": {
+    "present": true,
+    "branch": "main",
+    "commit": "",
+    "has_commits": false,
+    "dirty": true,
+    "dirty_paths": [
+      "?? AGENTS.md",
+      "?? LICENSE",
+      "?? README.md",
+      "?? bin/",
+      "?? lib/",
+      "?? orp.yml",
+      "?? orp/",
+      "?? package.json",
+      "?? test/"
+    ],
+    "default_branch": "main",
+    "protected_branches": [
+      "main"
+    ],
+    "protected_branch": true,
+    "allow_protected_branch_work": false,
+    "work_branch_required": true,
+    "working_branch_safe": false,
+    "detected_remote_url": "",
+    "detected_github_repo": "",
+    "initialized_by_orp": false
+  },
+  "remote": {
+    "source": "none",
+    "mode": "local_only",
+    "detected_remote_url": "",
+    "detected_github_repo": "",
+    "effective_remote_url": "",
+    "effective_github_repo": ""
+  },
+  "status": {
+    "warnings": [
+      "current branch `main` is protected; create or switch to a work branch before meaningful edits.",
+      "working tree is dirty; create an explicit checkpoint commit before agent work."
+    ],
+    "next_actions": [
+      "git checkout -b orp/bootstrap",
+      "git add orp.yml orp analysis/orp.kernel.task.yml && git commit -m \"checkpoint: bootstrap ORP governance\"",
+      "optional: rerun with --github-repo owner/repo or --remote-url <url> when a remote exists"
+    ],
+    "ready_for_agent_work": false
+  }
+}

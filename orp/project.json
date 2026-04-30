@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "orp_project_context",
+  "project": {
+    "name": "tailnet-app",
+    "root": "/Volumes/Code_2TB/code/tailnet-app"
+  },
+  "initialized_at_utc": "2026-04-30T02:59:14Z",
+  "refreshed_at_utc": "2026-04-30T02:59:14Z",
+  "refresh_source": "init",
+  "authority_surfaces": [
+    {
+      "path": "AGENTS.md",
+      "kind": "agent_guidance",
+      "role": "project_agent_rules",
+      "exists": true,
+      "size_bytes": 4905
+    },
+    {
+      "path": "CLAUDE.md",
+      "kind": "agent_guidance",
+      "role": "project_agent_rules",
+      "exists": true,
+      "size_bytes": 4919
+    },
+    {
+      "path": "README.md",
+      "kind": "overview",
+      "role": "project_overview",
+      "exists": true,
+      "size_bytes": 2396
+    },
+    {
+      "path": "orp.yml",
+      "kind": "orp_config",
+      "role": "runtime_config",
+      "exists": true,
+      "size_bytes": 1257
+    },
+    {
+      "path": "orp/hygiene-policy.json",
+      "kind": "hygiene_policy",
+      "role": "agentic_worktree_policy",
+      "exists": true,
+      "size_bytes": 3705
+    },
+    {
+      "path": "analysis/orp.kernel.task.yml",
+      "kind": "kernel_artifact",
+      "role": "starter_task_contract",
+      "exists": true,
+      "size_bytes": 728
+    },
+    {
+      "path": "package.json",
+      "kind": "manifest",
+      "role": "javascript_manifest",
+      "exists": true,
+      "size_bytes": 1153
+    }
+  ],
+  "directory_signals": {
+    "source_dirs": [
+      "lib",
+      "analysis",
+      "test"
+    ],
+    "languages_or_stacks": [
+      "javascript"
+    ],
+    "has_tests": true,
+    "has_docs": false,
+    "has_orp_config": true,
+    "authority_surface_count": 7
+  },
+  "research_policy": {
+    "default_timing": "after_local_decomposition_before_action",
+    "provider_calls_are_explicit": true,
+    "live_calls_require_execute": true,
+    "secret_alias": "openai-primary",
+    "env_var": "OPENAI_API_KEY",
+    "call_moments": [
+      {
+        "moment_id": "plan",
+        "calls_api": false,
+        "when": "Always run first during project refresh or research ask; inspect local authority surfaces and decompose the question."
+      },
+      {
+        "moment_id": "thinking_reasoning_high",
+        "calls_api": true,
+        "lane": "openai_reasoning_high",
+        "model": "gpt-5.5",
+        "when": "Use when the directory has a decision gate, route choice, proof strategy, architecture tradeoff, or ambiguous next action."
+      },
+      {
+        "moment_id": "web_synthesis",
+        "calls_api": true,
+        "lane": "openai_web_synthesis",
+        "model": "gpt-5.5",
+        "when": "Use when the answer depends on current public facts, external docs, papers, project status, or citations."
+      },
+      {
+        "moment_id": "pro_deep_research",
+        "calls_api": true,
+        "lane": "openai_deep_research",
+        "model": "gpt-5.5",
+        "when": "Use only after reasoning/web lanes expose a research-heavy gap, disagreement, source-quality issue, or literature-scale synthesis need.",
+        "capability_note": "Runs GPT-5.5 with background mode, web search, and xhigh reasoning for a pro-research-style pass."
+      }
+    ],
+    "skip_research_when": [
+      "the next action is already executable from local project authority",
+      "the question is only a deterministic local status or file lookup",
+      "the task is implementation-ready and no external/public evidence is needed"
+    ],
+    "escalate_to_deep_research_when": [
+      "web synthesis finds conflicting or weak public sources",
+      "the project must compare multiple papers, standards, providers, or public claims",
+      "the output needs a citation-rich report rather than a short decision memo"
+    ],
+    "spend_policy": {
+      "budgeted_provider_calls": "OpenAI research lanes are paid but allowed when executed through ORP with a configured local spend policy and a passing spend preflight.",
+      "hard_stop_boundary": "Stop for missing required spend policy, missing secret, cap-exceeded preflight, unbudgeted provider spend, purchases, or non-ORP paid compute.",
+      "local_enforcement": "keychain spend policy with local_preflight_reservation"
+    }
+  },
+  "hygiene_policy": {
+    "path": "orp/hygiene-policy.json",
+    "command": "orp hygiene --json",
+    "workspace_alias": "orp workspace hygiene --json",
+    "non_destructive": true,
+    "stop_on_unclassified": true,
+    "run_moments": [
+      "before long delegation",
+      "after material writeback",
+      "before remote side effects or unbudgeted paid compute",
+      "when dirty state grows unexpectedly"
+    ],
+    "budgeted_research_spend_rule": "Do not hard-stop solely because an OpenAI research lane is paid; budgeted ORP research may run when `orp research` spend preflight is within the configured daily cap."
+  },
+  "evolution_policy": {
+    "refresh_surfaces": [
+      "orp init",
+      "orp project refresh",
+      "orp hygiene --json",
+      "after adding or changing roadmap/spec/agent-guidance files",
+      "after installing a profile pack or changing command surfaces",
+      "before a research loop whose answer depends on project state"
+    ],
+    "hygiene_loop": {
+      "command": "orp hygiene --json",
+      "workspace_alias": "orp workspace hygiene --json",
+      "run_moments": [
+        "before long delegation",
+        "after material writeback",
+        "before remote side effects or unbudgeted paid compute",
+        "when dirty state grows unexpectedly"
+      ],
+      "stop_rule": "Do not start or continue long-running expansion while hygiene reports `dirty_unclassified`; classify, refresh generated surfaces, canonicalize useful scratch, or write a blocker first.",
+      "self_healing_rule": "Non-destructive by default: never reset, checkout, or delete files merely to hide dirty state.",
+      "budgeted_research_spend_rule": "Do not hard-stop solely because an OpenAI research lane is paid; budgeted ORP research may run when `orp research` spend preflight is within the configured daily cap."
+    },
+    "evolution_loop": [
+      "scan authority surfaces",
+      "run worktree hygiene before expansion, remote side effects, or unbudgeted spend",
+      "classify dirty state as canonical, runtime, source/test, docs, scratch, or blocker",
+      "classify what is local, public, executable, or human-gated",
+      "choose whether reasoning, web synthesis, or deep research is justified",
+      "act only after the decision gate has enough evidence",
+      "checkpoint the resulting project state"
+    ],
+    "boundary": "ORP project context is process-only. It guides routing and research timing but is not evidence."
+  },
+  "next_actions": [
+    "orp project refresh --json",
+    "orp hygiene --json",
+    "orp agents audit",
+    "orp status --json",
+    "orp research ask \"<decision question>\" --json"
+  ],
+  "notes": [
+    "This file is ORP process context for the local directory.",
+    "It is refreshed as the project evolves and should not be cited as proof or canonical evidence.",
+    "Provider research calls remain opt-in through `orp research ask --execute`.",
+    "Do not hard-stop solely because an OpenAI research lane is paid; budgeted ORP research may run when `orp research` spend preflight is within the configured daily cap."
+  ]
+}

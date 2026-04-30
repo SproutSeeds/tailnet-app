@@ -1,0 +1,46 @@
+{
+  "name": "@sproutseeds/tailnet-app",
+  "version": "0.1.0",
+  "description": "Reusable Tailscale Serve diagnostics and setup helpers for private local apps.",
+  "type": "module",
+  "bin": {
+    "tailnet-app": "bin/tailnet-app"
+  },
+  "exports": {
+    ".": "./lib/index.mjs"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "check": "node --check bin/tailnet-app && node --check lib/index.mjs && node --check lib/cli.mjs"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tailscale",
+    "tailnet",
+    "serve",
+    "local-first",
+    "private-app"
+  ],
+  "author": "Cody Mitchell <cody@frg.earth>",
+  "license": "MIT",
+  "funding": {
+    "type": "individual",
+    "url": "https://frg.earth/support?utm_source=npm&utm_medium=funding&utm_campaign=public_work_support&package=tailnet-app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SproutSeeds/tailnet-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SproutSeeds/tailnet-app/issues"
+  },
+  "homepage": "https://github.com/SproutSeeds/tailnet-app#readme",
+  "engines": {
+    "node": ">=18"
+  }
+}

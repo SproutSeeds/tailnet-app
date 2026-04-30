@@ -1,0 +1,20 @@
+schema_version: "1.0.0"
+artifact_class: task
+object: bootstrap ORP governance for tailnet-app
+goal: establish a local-first ORP workflow with a promotable starter task artifact
+boundary:
+  - repository bootstrap and governance setup
+  - initial ORP validation and readiness loop
+constraints:
+  - keep evidence in canonical artifact paths instead of ORP process metadata
+  - preserve a clean handoff and checkpoint discipline from day one
+success_criteria:
+  - default ORP gate profile passes
+  - repo is ready for a first meaningful work branch and checkpoint sequence
+canonical_target:
+  - orp/HANDOFF.md
+  - orp/checkpoints/CHECKPOINT_LOG.md
+artifact_refs:
+  - orp.yml
+  - orp/HANDOFF.md
+  - orp/checkpoints/CHECKPOINT_LOG.md

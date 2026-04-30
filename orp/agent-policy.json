@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "mode": "repo_governance",
+  "local_first": true,
+  "remote_optional": true,
+  "branch_policy": {
+    "default_branch": "main",
+    "protected_branches": [
+      "main"
+    ],
+    "allow_direct_work_on_protected_branches": false,
+    "require_work_branch_for_meaningful_edits": true
+  },
+  "checkpoint_policy": {
+    "required": true,
+    "cadence": "after_each_meaningful_completed_unit",
+    "commit_message_prefix": "checkpoint:",
+    "log_path": "orp/checkpoints/CHECKPOINT_LOG.md"
+  },
+  "merge_policy": {
+    "allow_automatic_merge_to_protected_branches": false,
+    "require_validation_before_ready": true
+  },
+  "continuity_policy": {
+    "handoff_path": "orp/HANDOFF.md",
+    "update_handoff_during_transitions": true,
+    "prefer_explicit_cleanup_flows": true,
+    "prefer_destructive_deletion": false
+  },
+  "hygiene_policy": {
+    "enabled": true,
+    "policy_path": "orp/hygiene-policy.json",
+    "command": "orp hygiene --json",
+    "workspace_alias": "orp workspace hygiene --json",
+    "non_destructive": true,
+    "stop_on_unclassified": true,
+    "run_moments": [
+      "before long delegation",
+      "after material writeback",
+      "before remote side effects or unbudgeted paid compute",
+      "when dirty state grows unexpectedly"
+    ],
+    "budgeted_research_spend_rule": "Do not hard-stop solely because an OpenAI research lane is paid; budgeted ORP research may run when `orp research` spend preflight is within the configured daily cap.",
+    "required_self_healing": [
+      "classify dirty paths",
+      "refresh generated surfaces",
+      "canonicalize useful scratch",
+      "emit a blocker when classification is unclear"
+    ]
+  },
+  "remote_policy": {
+    "mode": "local_only",
+    "effective_remote_url": "",
+    "effective_github_repo": "",
+    "source": "none"
+  },
+  "rules": [
+    {
+      "id": "no_direct_protected_branch_work",
+      "enabled": true,
+      "enforcement": "governance_runtime"
+    },
+    {
+      "id": "checkpoint_after_meaningful_unit",
+      "enabled": true,
+      "enforcement": "governance_runtime"
+    },
+    {
+      "id": "validation_before_ready",
+      "enabled": true,
+      "enforcement": "governance_runtime"
+    },
+    {
+      "id": "no_automatic_merge_to_protected",
+      "enabled": true,
+      "enforcement": "governance_runtime"
+    },
+    {
+      "id": "no_long_expansion_with_unclassified_dirty_paths",
+      "enabled": true,
+      "enforcement": "hygiene_command"
+    }
+  ]
+}

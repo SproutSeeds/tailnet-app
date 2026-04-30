@@ -1,0 +1,55 @@
+version: "1"
+project:
+  name: tailnet-app
+  repo_root: .
+  canonical_paths:
+    code: src/
+    analysis: analysis/
+lifecycle:
+  claim_status_map:
+    Draft: draft
+    In review: ready
+    Verified: reviewed
+    Blocked: blocked
+    Retracted: retracted
+  atom_status_map:
+    todo: draft
+    in_progress: ready
+    blocked: blocked
+    done: reviewed
+gates:
+  - id: starter_kernel
+    description: Validate the starter ORP reasoning-kernel task artifact
+    phase: structure_kernel
+    command: echo ORP_KERNEL_STARTER
+    pass:
+      exit_codes: [0]
+      stdout_must_contain:
+        - ORP_KERNEL_STARTER
+    kernel:
+      mode: hard
+      artifacts:
+        - path: analysis/orp.kernel.task.yml
+          artifact_class: task
+    evidence:
+      status: process_only
+      note: Starter kernel artifact records task structure, not evidence.
+      paths:
+        - analysis/orp.kernel.task.yml
+    on_fail: stop
+  - id: smoke
+    description: Basic smoke gate
+    phase: verification
+    command: echo ORP_SMOKE
+    pass:
+      exit_codes: [0]
+      stdout_must_contain:
+        - ORP_SMOKE
+profiles:
+  default:
+    description: Minimal starter profile
+    mode: discovery
+    packet_kind: problem_scope
+    gate_ids:
+      - starter_kernel
+      - smoke
