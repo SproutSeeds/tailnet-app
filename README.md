@@ -25,12 +25,14 @@ npm install -g @sproutseeds/tailnet-app
 - Tailscale Serve is tailnet-only by default.
 - Tailscale Funnel is never enabled by default.
 - Device URLs are the plug-and-play path.
-- Named Tailscale Services are optional polish.
+- Named Tailscale Services are the durable clean-URL path for multi-app hosts.
 
 ## CLI
 
 ```bash
 tailnet-app doctor --app-name dumpy --port 7331 --service-name dumpy
+tailnet-app ensure --app-name dumpy --port 7331 --auto-serve
+tailnet-app supervise --config ops/tailnet-app/dumpy.json -- node server.mjs
 tailnet-app serve-device --app-name dumpy --port 7331
 tailnet-app service-instructions --app-name dumpy --port 7331 --service-name dumpy
 ```
@@ -39,13 +41,14 @@ For an app that already has a named Tailscale Service and should fail when that
 service is not approved/routed:
 
 ```bash
-tailnet-app doctor \
+tailnet-app ensure \
   --app-name trading-dashboard \
   --port 8765 \
   --service-name trading-dashboard \
   --service-socket ~/.clawdad/tailscale-live-host/tailscaled.sock \
   --official-url https://trading-dashboard.example.ts.net/ \
-  --require-service
+  --require-service \
+  --auto-service
 ```
 
 The first-run user experience should not require a named service. If Tailscale
@@ -74,6 +77,8 @@ Those may require defining `svc:dumpy` in the Tailscale admin console.
   "serviceName": "trading-dashboard",
   "officialUrl": "https://trading-dashboard.example.ts.net/",
   "requireService": true,
+  "requireDeviceServe": false,
+  "autoService": true,
   "allowFunnel": false
 }
 ```
@@ -87,7 +92,7 @@ tailnet-app doctor --config tailnet-app.config.json
 ## Library
 
 ```js
-import { runTailnetDoctor, configureDeviceServe } from "@sproutseeds/tailnet-app";
+import { configureDeviceServe, runTailnetDoctor, runTailnetEnsure } from "@sproutseeds/tailnet-app";
 
 const config = {
   appName: "dumpy",
@@ -100,8 +105,37 @@ if (!doctor.ok) {
   process.exitCode = 1;
 }
 
+const ensure = await runTailnetEnsure({
+  ...config,
+  autoServe: true,
+  dependencies: [
+    {
+      name: "speech-backend",
+      healthUrl: "http://100.64.0.10:8771/healthz",
+      required: true,
+      autoStart: true,
+      startCommand: ["my-app", "speech-start"]
+    }
+  ]
+});
+
 await configureDeviceServe(config);
 ```
+
+`ensure` is the startup orchestration layer. It checks the app, configures
+private device Serve when `autoServe` is true, starts explicitly configured
+dependencies, waits for their `/healthz`, and reports degraded readiness instead
+of hiding backend failures behind a blank app.
+
+`supervise` is the LaunchAgent/systemd entrypoint. It starts the service command,
+waits for local health, runs `ensure`, writes optional readiness JSON, forwards
+signals to the child, and exits when the child exits so the platform supervisor
+can restart it.
+
+Apps that use a durable Tailscale Service host satisfy the network gate through
+the named service route. Set `autoService: true` to repair the host-side route
+when approval already exists. Set `requireDeviceServe: true` only when the app
+should also require a per-device Serve route.
 
 ## Security Model
 

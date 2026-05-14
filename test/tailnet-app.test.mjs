@@ -1,5 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { EventEmitter } from "node:events";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
 import {
   analyzeFunnel,
   deviceTailnetUrl,
@@ -7,10 +11,21 @@ import {
   hasServiceHostApproval,
   normalizeConfig,
   parseJsonFromCommandOutput,
+  runTailnetEnsure,
   runTailnetDoctor,
+  runTailnetSupervise,
   serviceInstructions,
   serviceTailnetUrl
 } from "../lib/index.mjs";
+
+function jsonResponse(payload, status = 200) {
+  return {
+    ok: status >= 200 && status < 300,
+    status,
+    headers: { get: () => "application/json" },
+    json: async () => payload
+  };
+}
 
 test("normalizes app config and defaults https port to app port", () => {
   const config = normalizeConfig({ appName: "dumpy", port: "7331" });
@@ -242,6 +257,143 @@ test("doctor combines health, tailscale, serve, and funnel checks", async () => 
   assert.ok(calls.length >= 4);
 });
 
+test("ensure starts an unhealthy required dependency and waits for health", async () => {
+  let dependencyStarted = false;
+  const runner = async (_command, args) => {
+    const key = args.filter((arg) => !arg.startsWith("--socket=")).join(" ");
+
+    if (key === "status --json") {
+      return {
+        stdout: JSON.stringify({
+          BackendState: "Running",
+          MagicDNSSuffix: "tail.test",
+          Self: { DNSName: "device.tail.test." },
+          User: {}
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "serve status --json") {
+      return {
+        stdout: JSON.stringify({
+          Web: {
+            "device.tail.test:8765": {
+              Handlers: { "/": { Proxy: "http://127.0.0.1:8765" } }
+            }
+          }
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "funnel status" || key === "funnel status --json") {
+      return { stdout: "{}", stderr: "", code: 0 };
+    }
+
+    if (args[0] === "start-backend") {
+      dependencyStarted = true;
+      return { stdout: "started", stderr: "", code: 0 };
+    }
+
+    throw new Error(`unexpected command: ${key}`);
+  };
+  const fetcher = async (url) => {
+    if (String(url).includes("backend.test")) {
+      if (!dependencyStarted) {
+        throw new Error("connection refused");
+      }
+      return jsonResponse({ ok: true, app: "backend" });
+    }
+    return jsonResponse({ ok: true, app: "trading-dashboard" });
+  };
+
+  const result = await runTailnetEnsure(
+    {
+      appName: "trading-dashboard",
+      port: 8765,
+      dependencies: [
+        {
+          name: "backend",
+          healthUrl: "http://backend.test/healthz",
+          startCommand: ["tailnet-helper", "start-backend"],
+          timeoutMs: 50
+        }
+      ]
+    },
+    { runner, fetch: fetcher }
+  );
+
+  assert.equal(result.ok, true);
+  assert.equal(result.ready, true);
+  assert.equal(result.degraded, false);
+  assert.equal(result.dependencies[0].ok, true);
+  assert.equal(result.dependencies[0].start.attempted, true);
+});
+
+test("ensure keeps the app ready but degraded for optional dependency failure", async () => {
+  const runner = async (_command, args) => {
+    const key = args.filter((arg) => !arg.startsWith("--socket=")).join(" ");
+    if (key === "status --json") {
+      return {
+        stdout: JSON.stringify({
+          BackendState: "Running",
+          MagicDNSSuffix: "tail.test",
+          Self: { DNSName: "device.tail.test." },
+          User: {}
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+    if (key === "serve status --json") {
+      return {
+        stdout: JSON.stringify({
+          Web: {
+            "device.tail.test:8765": {
+              Handlers: { "/": { Proxy: "http://127.0.0.1:8765" } }
+            }
+          }
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+    if (key === "funnel status" || key === "funnel status --json") {
+      return { stdout: "{}", stderr: "", code: 0 };
+    }
+    throw new Error(`unexpected command: ${key}`);
+  };
+  const fetcher = async (url) => {
+    if (String(url).includes("optional.test")) {
+      throw new Error("connection refused");
+    }
+    return jsonResponse({ ok: true });
+  };
+
+  const result = await runTailnetEnsure(
+    {
+      appName: "trading-dashboard",
+      port: 8765,
+      dependencies: [
+        {
+          name: "optional-backend",
+          healthUrl: "http://optional.test/healthz",
+          required: false
+        }
+      ]
+    },
+    { runner, fetch: fetcher }
+  );
+
+  assert.equal(result.ok, true);
+  assert.equal(result.ready, true);
+  assert.equal(result.degraded, true);
+  assert.equal(result.failed[0].name, "optional-backend");
+});
+
 test("doctor can require named service approval and route", async () => {
   const runner = async (command, args) => {
     const socket = args.find((arg) => arg.startsWith("--socket=")) || "";
@@ -352,4 +504,270 @@ test("doctor can require named service approval and route", async () => {
   assert.equal(result.ok, true);
   assert.equal(result.checks.find((check) => check.name === "named_service_approval").ok, true);
   assert.equal(result.checks.find((check) => check.name === "named_service_route").ok, true);
+});
+
+test("doctor accepts named service route without a device Serve route", async () => {
+  const runner = async (_command, args) => {
+    const socket = args.find((arg) => arg.startsWith("--socket=")) || "";
+    const key = args.filter((arg) => !arg.startsWith("--socket=")).join(" ");
+
+    if (key === "status --json" && socket === "") {
+      return {
+        stdout: JSON.stringify({
+          BackendState: "Running",
+          MagicDNSSuffix: "tail.test",
+          Self: { DNSName: "device.tail.test." },
+          User: {}
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "status --json" && socket) {
+      return {
+        stdout: JSON.stringify({
+          BackendState: "Running",
+          MagicDNSSuffix: "tail.test",
+          Self: {
+            DNSName: "live-app-host.tail.test.",
+            CapMap: {
+              "service-host": [
+                {
+                  "svc:clawdad": ["100.64.0.1"]
+                }
+              ]
+            }
+          },
+          User: {}
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "serve status --json" && socket === "") {
+      return { stdout: JSON.stringify({ Web: {} }), stderr: "", code: 0 };
+    }
+
+    if (key === "serve status --json" && socket) {
+      return {
+        stdout: JSON.stringify({
+          Services: {
+            "svc:clawdad": {
+              Web: {
+                "clawdad.tail.test:443": {
+                  Handlers: {
+                    "/": { Proxy: "http://127.0.0.1:4477" }
+                  }
+                }
+              }
+            }
+          }
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "funnel status" || key === "funnel status --json") {
+      return { stdout: "{}", stderr: "", code: 0 };
+    }
+
+    throw new Error(`unexpected command: ${key}`);
+  };
+  const fetcher = async () => jsonResponse({ ok: true });
+
+  const result = await runTailnetDoctor(
+    {
+      appName: "clawdad",
+      port: 4477,
+      serviceName: "clawdad",
+      serviceSocket: "/tmp/tailscaled.sock",
+      requireService: true,
+      officialUrl: "https://clawdad.tail.test/"
+    },
+    { runner, fetch: fetcher }
+  );
+
+  assert.equal(result.ok, true);
+  assert.equal(result.checks.find((check) => check.name === "serve_device_route").ok, true);
+  assert.match(result.checks.find((check) => check.name === "serve_device_route").detail, /optional device route/);
+  assert.equal(result.checks.find((check) => check.name === "named_service_route").ok, true);
+});
+
+test("ensure configures a missing named service route when autoService is enabled", async () => {
+  let serviceConfigured = false;
+  const runner = async (_command, args) => {
+    const socket = args.find((arg) => arg.startsWith("--socket=")) || "";
+    const key = args.filter((arg) => !arg.startsWith("--socket=")).join(" ");
+
+    if (key === "status --json" && socket === "") {
+      return {
+        stdout: JSON.stringify({
+          BackendState: "Running",
+          MagicDNSSuffix: "tail.test",
+          Self: { DNSName: "device.tail.test." },
+          User: {}
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "status --json" && socket) {
+      return {
+        stdout: JSON.stringify({
+          BackendState: "Running",
+          MagicDNSSuffix: "tail.test",
+          Self: {
+            DNSName: "live-app-host.tail.test.",
+            CapMap: {
+              "service-host": [
+                {
+                  "svc:clawdad": ["100.64.0.1"]
+                }
+              ]
+            }
+          },
+          User: {}
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "serve status --json" && socket === "") {
+      return { stdout: JSON.stringify({ Web: {} }), stderr: "", code: 0 };
+    }
+
+    if (key === "serve status --json" && socket) {
+      return {
+        stdout: JSON.stringify({
+          Services: serviceConfigured
+            ? {
+                "svc:clawdad": {
+                  Web: {
+                    "clawdad.tail.test:443": {
+                      Handlers: {
+                        "/": { Proxy: "http://127.0.0.1:4477" }
+                      }
+                    }
+                  }
+                }
+              }
+            : {}
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+
+    if (key === "serve --yes --service=svc:clawdad --https=443 http://127.0.0.1:4477" && socket) {
+      serviceConfigured = true;
+      return { stdout: "configured", stderr: "", code: 0 };
+    }
+
+    if (key === "funnel status" || key === "funnel status --json") {
+      return { stdout: "{}", stderr: "", code: 0 };
+    }
+
+    throw new Error(`unexpected command: ${key}`);
+  };
+  const fetcher = async () => jsonResponse({ ok: true });
+
+  const result = await runTailnetEnsure(
+    {
+      appName: "clawdad",
+      port: 4477,
+      serviceName: "clawdad",
+      serviceSocket: "/tmp/tailscaled.sock",
+      requireService: true,
+      autoService: true,
+      officialUrl: "https://clawdad.tail.test/"
+    },
+    { runner, fetch: fetcher }
+  );
+
+  assert.equal(result.ok, true);
+  assert.equal(result.namedService.attempted, true);
+  assert.equal(result.namedService.ok, true);
+  assert.equal(result.checks.find((check) => check.name === "named_service_route").ok, true);
+});
+
+test("supervise writes readiness status and returns child exit code", async () => {
+  const tempDir = await mkdtemp(join(tmpdir(), "tailnet-app-supervise-"));
+  const statusFile = join(tempDir, "readiness.json");
+  const child = new EventEmitter();
+  child.killed = false;
+  child.kill = () => {
+    child.killed = true;
+    child.emit("exit", 143, "SIGTERM");
+    return true;
+  };
+  const spawner = (_command, _args) => {
+    setTimeout(() => child.emit("exit", 0, null), 25);
+    return child;
+  };
+  const runner = async (_command, args) => {
+    const key = args.filter((arg) => !arg.startsWith("--socket=")).join(" ");
+    if (key === "status --json") {
+      return {
+        stdout: JSON.stringify({
+          BackendState: "Running",
+          MagicDNSSuffix: "tail.test",
+          Self: { DNSName: "device.tail.test." },
+          User: {}
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+    if (key === "serve status --json") {
+      return {
+        stdout: JSON.stringify({
+          Web: {
+            "device.tail.test:8765": {
+              Handlers: {
+                "/": { Proxy: "http://127.0.0.1:8765" }
+              }
+            }
+          }
+        }),
+        stderr: "",
+        code: 0
+      };
+    }
+    if (key === "funnel status" || key === "funnel status --json") {
+      return { stdout: "{}", stderr: "", code: 0 };
+    }
+    throw new Error(`unexpected command: ${key}`);
+  };
+  const fetcher = async () => jsonResponse({ ok: true });
+
+  try {
+    const result = await runTailnetSupervise(
+      {
+        appName: "trading-dashboard",
+        port: 8765,
+        startupTimeoutMs: 250
+      },
+      {
+        command: ["node", "server.js"],
+        statusFile,
+        runner,
+        fetch: fetcher,
+        spawn: spawner,
+        stdio: "ignore"
+      }
+    );
+    const status = JSON.parse(await readFile(statusFile, "utf8"));
+
+    assert.equal(result.exitCode, 0);
+    assert.equal(status.state, "stopped");
+    assert.equal(status.ready, true);
+    assert.equal(status.ok, true);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
 });
