@@ -3,3 +3,4 @@ coverage/
 *.tgz
 *.log
 .DS_Store
+/orp/state.json
